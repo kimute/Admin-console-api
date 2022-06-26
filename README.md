@@ -57,6 +57,10 @@ API for User Authenication & create JSON file for single Tenant APP Build
 
 ## set up mysql in local PC
 
-- docker-compose up -d 後　 docker-compose exec db bash -c 'mysql -u root -p'で mysql 　 user 設定をする,password は env で設定した password →
-- → GRANT ALL PRIVILEGES ON _._ to 'user'@'%' identified by "password";
-- → 　 flush privileges;
+- docker-compose up -d 
+- docker-compose exec db bash -c 'mysql -u root -p'
+  - create user in mysql 
+  - create password in env 
+  - password →
+    - → GRANT ALL PRIVILEGES ON _._ to 'user'@'%' identified by "password";
+    - → flush privileges;
