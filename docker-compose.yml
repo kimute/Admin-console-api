@@ -1,0 +1,36 @@
+services:
+  db:
+    build: 
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    restart: always
+    tty: true
+    env_file: ./src/.env
+    environment: 
+      TZ: Asia/Tokyo
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./log/mysql:/var/log/mysql
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports: 
+      - 3308:3308
+    command: --port 3308
+
+
+  fast_api:
+    depends_on:
+      - db
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      #- ./src/:/src/server
+      - ./local/src/:/src/server
+    tty: true
+    environment:
+      TZ: Asia/Tokyo
+    ports: 
+      - 8000:8000
+    #command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
