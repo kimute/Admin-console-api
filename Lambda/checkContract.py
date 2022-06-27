@@ -82,7 +82,7 @@ def lambda_handler(event, context):
                     f"Authentication error no contract found. User Pool ID:{userPoolId} email:{email}")  
             # Contract Status Check
             if not body.get("isUserStatus"):
-                logging.error("ユーザステータス異常")
+                logging.error("check user status!")
                 raise Exception(
                     f"Authentication error no contract found:{userPoolId} email:{email}")  
     except Exception as err:
